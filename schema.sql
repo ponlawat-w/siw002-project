@@ -13,18 +13,19 @@ CREATE TYPE target_site_status AS ENUM
 
 DROP TABLE IF EXISTS social_medias CASCADE;
 CREATE TABLE social_medias (
-  id    SERIAL,
+  id    INTEGER       NOT NULL,
   name  VARCHAR(200)  NOT NULL,
   CONSTRAINT social_medias_pk PRIMARY KEY (id)
 );
 
 DROP TABLE IF EXISTS social_media_messages CASCADE;
 CREATE TABLE social_media_messages (
-  id            SERIAL,
-  message       TEXT            NOT NULL,
-  published_by  VARCHAR(200)    NOT NULL,
-  social_media  INTEGER         NOT NULL,
-  geo           GEOMETRY(POINT) NULL,
+  id                  INTEGER         NOT NULL,
+  message             TEXT            NOT NULL,
+  published_by        VARCHAR(200)    NOT NULL,
+  published_datetime  TIMESTAMP       NOT NULL,
+  social_media        INTEGER         NOT NULL,
+  geo                 GEOMETRY(POINT) NULL,
   CONSTRAINT social_media_messages_pk               PRIMARY KEY (id),
   CONSTRAINT social_media_messages_social_media_fk  FOREIGN KEY (social_media)
     REFERENCES social_medias(id)
@@ -33,14 +34,14 @@ CREATE TABLE social_media_messages (
 
 DROP TABLE IF EXISTS disasters CASCADE;
 CREATE TABLE disasters (
-  id                SERIAL,
+  id                INTEGER           NOT NULL,
   severity          SMALLINT          NOT NULL,
   active            BOOLEAN           NOT NULL DEFAULT true,
   incident_datetime TIMESTAMP         NOT NULL DEFAULT NOW(),
   type              disaster_type     NOT NULL,
   geo               GEOMETRY(POLYGON) NOT NULL,
   CONSTRAINT disasters_pk             PRIMARY KEY (id),
-  CONSTRAINT disasters_severity_value CHECK (severity BETWEEN 1 AND 10)
+  CONSTRAINT disasters_severity_value CHECK (severity BETWEEN 1 AND 5)
 );
 
 DROP TABLE IF EXISTS earthquakes CASCADE;
@@ -56,8 +57,8 @@ CREATE TABLE earthquakes (
 
 DROP TABLE IF EXISTS volcanic_eruptions CASCADE;
 CREATE TABLE volcanic_eruptions (
-  id        INTEGER         NOT NULL,
-  centroid  GEOMETRY(POINT) NOT NULL,
+  id      INTEGER         NOT NULL,
+  crater  GEOMETRY(POINT) NOT NULL,
   CONSTRAINT volcanic_eruptions_pk    PRIMARY KEY (id),
   CONSTRAINT volcanic_eruptions_id_fk FOREIGN KEY (id) REFERENCES disasters(id)
     ON DELETE CASCADE
@@ -93,7 +94,7 @@ CREATE TABLE storms (
 
 DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users (
-  id        SERIAL,
+  id        INTEGER       NOT NULL,
   full_name VARCHAR(200)  NOT NULL,
   phone     VARCHAR(50)   NOT NULL,
   type      user_type     NOT NULL,
@@ -111,12 +112,13 @@ CREATE TABLE citizens (
 
 DROP TABLE IF EXISTS target_sites CASCADE;
 CREATE TABLE target_sites (
-  id            SERIAL,
-  status        target_site_status  NOT NULL,
-  priority      INTEGER             NOT NULL,
-  last_updated  TIMESTAMP           NOT NULL  DEFAULT NOW(),
-  created_by    INTEGER             NOT NULL,
-  assigned_to   INTEGER             NULL,
+  id            INTEGER                       NOT NULL,
+  status        target_site_status            NOT NULL,
+  priority      INTEGER                       NOT NULL,
+  last_updated  TIMESTAMP                     NOT NULL  DEFAULT NOW(),
+  created_by    INTEGER                       NOT NULL,
+  assigned_to   INTEGER                       NULL,
+  geo           GEOMETRY(GEOMETRYCOLLECTION)  NOT NULL,
   CONSTRAINT target_sites_pk              PRIMARY KEY (id),
   CONSTRAINT target_sites_created_by_fk   FOREIGN KEY (created_by)
     REFERENCES users(id)
