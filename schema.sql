@@ -20,11 +20,20 @@ CREATE TABLE social_medias (
 
 DROP TABLE IF EXISTS social_media_messages CASCADE;
 CREATE TABLE social_media_messages (
+<<<<<<< HEAD
   id            INTEGER         NOT NULL,
   message       TEXT            NOT NULL,
   published_by  VARCHAR(200)    NOT NULL,
   social_media  INTEGER         NOT NULL,
   geo           GEOMETRY(POINT) NULL,
+=======
+  id                  INTEGER         NOT NULL,
+  message             TEXT            NOT NULL,
+  published_by        VARCHAR(200)    NOT NULL,
+  published_datetime  TIMESTAMP       NOT NULL,
+  social_media        INTEGER         NOT NULL,
+  geo                 GEOMETRY(POINT) NULL,
+>>>>>>> 573f18dce7caba5f9094aa73862334fe77bd982b
   CONSTRAINT social_media_messages_pk               PRIMARY KEY (id),
   CONSTRAINT social_media_messages_social_media_fk  FOREIGN KEY (social_media)
     REFERENCES social_medias(id)
