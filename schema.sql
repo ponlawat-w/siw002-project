@@ -118,7 +118,7 @@ CREATE TABLE target_sites (
   last_updated  TIMESTAMP                     NOT NULL  DEFAULT NOW(),
   created_by    INTEGER                       NOT NULL,
   assigned_to   INTEGER                       NULL,
-  geo           GEOMETRY(GEOMETRYCOLLECTION)  NOT NULL,
+  geo           GEOMETRY  NOT NULL,
   CONSTRAINT target_sites_pk              PRIMARY KEY (id),
   CONSTRAINT target_sites_created_by_fk   FOREIGN KEY (created_by)
     REFERENCES users(id)
