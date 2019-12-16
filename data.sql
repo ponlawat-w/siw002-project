@@ -18,7 +18,11 @@ INSERT INTO social_media_messages (id, message, published_by, published_datetime
   (102, 'Earthquake !! We are many people taking shelter in school here we need drinking water!!', 'Apinya WeeraanduBisista', TIMESTAMP '2019-10-05 12:22:05', 1, ST_GeomFromText('POINT(99.8585839 19.9511766)')),
   (103, 'This bridge is collapsed by the flood, vehicles cannot pass it', 'Paithoon', TIMESTAMP '2019-11-10 16:35:05', 1, ST_GeomFromText('POINT(102.543 13.543)')),
   (104, 'Tsunami just took away this house', 'John', TIMESTAMP '2019-09-02 12:20:05', 3, ST_GeomFromText('POINT(100 8)'));
-
+INSERT INTO social_media_messages (id, message, published_by, published_datetime, social_media, geo) VALUES
+  (201, 'Flood !! The village is inundated!!', 'sagar111', TIMESTAMP '2019-11-15 13:20:05', 2, ST_GeomFromText('POINT(102.4386558884521 17.208728495144474)')),
+  (202, 'The earth is crumbling !! crisis situation here!!', 'Deepak Sahil', TIMESTAMP '2012-12-15 07:22:05', 4, ST_GeomFromText('POINT(99.8585739 19.9611766)')),
+  (203, 'I am trapped in my house. The earth is crumbling', 'Samurai', TIMESTAMP '2019-11-10 16:35:05', 1, ST_GeomFromText('POINT(102.643 13.773)')),
+  (204, 'Earthquake is killing me', 'Ponpisit', TIMESTAMP '2019-10-12 12:30:15', 2, ST_GeomFromText('POINT(100.212 9.217)'));
 -- Data for table disasters
 TRUNCATE disasters CASCADE;
 INSERT INTO disasters (id, severity, active, incident_datetime, type, geo) VALUES
