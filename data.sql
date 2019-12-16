@@ -13,6 +13,11 @@ INSERT INTO social_media_messages (id, message, published_by, published_datetime
   (2, 'Roof is collapsed!!! My dog is in the house! HELP!!!', 'tawatchai', TIMESTAMP '2019-12-12 18:33:21', 2, ST_GeomFromText('POINT(99.34756749424889 20.004682759949375)')),
   (3, 'Black out!!! No electric!!!!!', 'ghargsd', TIMESTAMP '2019-12-12 17:30:00', 2, ST_GeomFromText('POINT(99.3321650449825 20.02690601936971)')),
   (4, 'Please fix the electricity before it gets dark', 'pleaseplease', TIMESTAMP '2019-12-12 17:32:23', 2, ST_GeomFromText('POINT(99.35207776470907 20.021744931753915)'));
+INSERT INTO social_media_messages (id, message, published_by, published_datetime, social_media, geo) VALUES
+  (101, 'Earthquake !! I see people trapped in the house!!', '@cnnJournalist', TIMESTAMP '2019-10-05 12:20:05', 2, ST_GeomFromText('POINT(102.4263821 17.2144061)')),
+  (102, 'Earthquake !! We are many people taking shelter in school here we need drinking water!!', 'Apinya WeeraanduBisista', TIMESTAMP '2019-10-05 12:22:05', 1, ST_GeomFromText('POINT(99.8585839 19.9511766)')),
+  (103, 'This bridge is collapsed by the flood, vehicles cannot pass it', 'Paithoon', TIMESTAMP '2019-11-10 16:35:05', 1, ST_GeomFromText('POINT(102.543 13.543)')),
+  (104, 'Tsunami just took away this house', 'John', TIMESTAMP '2019-09-02 12:20:05', 3, ST_GeomFromText('POINT(100 8)'));
 
 -- Data for table disasters
 TRUNCATE disasters CASCADE;
@@ -92,28 +97,4 @@ INSERT INTO site_disasters (target_site, disaster) VALUES
   (4, 1),
   (5, 2);
 
-
-
-
-
-
-
-INSERT INTO disasters (id, severity, active, incident_datetime, type, geo) VALUES
-  (1, 5, TRUE, TIMESTAMP '2019-12-12 16:02:38', 'earthquake',
-    ST_GeomFromText('POLYGON((99.34179938596503 19.991386987794268,99.34935248655097 20.00816314032623,99.3617121056916 20.0057436132844,99.37338507932441 19.990741715459485,99.37166846555488 19.98122364147655,99.34694922727363 19.9771903858429,99.3371645287873 19.98315956751491,99.34179938596503 19.991386987794268))')),
-  (2, 5, TRUE, TIMESTAMP '2019-12-14 04:23:10', 'tsunami',
-    ST_GeomFromText('POLYGON((98.23267235348521 7.903323077499917,98.43797936032115 7.903323077499917,98.43797936032115 7.755710072774676,98.23267235348521 7.755710072774676,98.23267235348521 7.903323077499917))'));
-
-
-INSERT INTO social_medias (id, name) VALUES
-  (101, 'Facebook'),
-  (102, 'Twitter'),
-  (103, 'Instagram');
-  
-INSERT INTO social_media_messages (id, message, published_by, published_datetime, social_media, geo) VALUES
-  (101, 'Earthquake !! I see people trapped in the house!!', '@cnnJournalist', TIMESTAMP '2019-10-05 12:20:05', 102, ST_GeomFromText('POINT(102.4263821 17.2144061)'))
-  (102, 'Earthquake !! We are many people taking shelter in school here we need drinking water!!', 'Apinya WeeraanduBisista', TIMESTAMP '2019-10-05 12:22:05', 101, ST_GeomFromText('POINT(99.8585839 19.9511766)'))
-  (103, 'This bridge is collapsed by the flood, vehicles cannot pass it', 'Paithoon', TIMESTAMP '2019-11-10 16:35:05', 101, ST_GeomFromText('POINT(102.543 13.543)'))
-  (104, 'Tsunami just took away this house', 'John', TIMESTAMP '2019-09-02 12:20:05', 103, ST_GeomFromText('POINT(100 8)'))
-
-
+-- End
