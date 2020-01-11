@@ -101,3 +101,26 @@ FROM (
       ON d.id = t.disaster
     GROUP BY d.id
 ) d_centroid;
+
+--- 9. Update social media messages linkage to target sites.
+--- For each social media messages which are located in any disaster but not linked to target site, create relation to nearest target site.
+--- Run query #5 again to see changes.
+UPDATE social_media_messages m
+  SET target_site = (
+    SELECT t.id
+      FROM target_sites t
+      JOIN disasters d ON t.disaster = d.id
+      WHERE ST_Within(m.geo, d.geo)
+      ORDER BY ST_Distance(m.geo, t.geo) ASC LIMIT 1
+  )
+  WHERE m.target_site IS NULL;
+SELECT disaster_types.val, (
+    SELECT COUNT(*)
+      FROM disasters d
+      LEFT JOIN target_sites t
+        ON d.id = t.disaster
+      LEFT JOIN social_media_messages smm
+        ON t.id = smm.target_site
+      WHERE d.type = disaster_types.val
+  )
+  FROM (SELECT UNNEST(ENUM_RANGE(NULL::disaster_type))::disaster_type val) disaster_types;
